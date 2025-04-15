@@ -15,9 +15,9 @@ st.set_page_config(layout='wide')
 # Users arriving at this page are not authenticated.
 st.session_state['authenticated'] = False
 
-# Make sure the config file (app/src/.streamlit/config.toml) disables the default sidebar navigation.
+# Ensure that the default sidebar navigation is turned off (see app/src/.streamlit/config.toml).
 SideBarLinks(show_home=True)
- 
+
 st.title('SwapSphere – Your Smart Bartering Platform')
 st.write('\n\n')
 st.write('### Choose a persona to log in as:')

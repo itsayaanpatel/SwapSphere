@@ -1,3 +1,16 @@
+"""
+10_Seller_Home.py
+
+This homepage is designed for the Seller persona (e.g., Emma).
+It provides options for sellers to manage and optimize their trade listings.
+The options include:
+  1. Bulk Upload Items to list new products.
+  2. View Trade History to track past deals.
+  3. Manage Inventory Listings to edit item details or view auto-matching suggestions.
+
+Each button navigates to a page dedicated to the respective functionality.
+"""
+
 import logging
 logger = logging.getLogger(__name__)
 
