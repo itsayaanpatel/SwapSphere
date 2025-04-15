@@ -106,3 +106,42 @@ def get_trade_history():
     trade_history = cursor.fetchall()
     
     return make_response(jsonify(trade_history), 200)
+
+@seller.route('/items', methods=['POST'])
+def add_new_item():
+    """
+    POST /seller/items
+
+    Adds a new item to the seller's inventory.
+    Expects a JSON payload with the following fields:
+        - seller_id: The ID of the seller (user_id from Users).
+        - title: The title of the item.
+        - description: A description of the item.
+        - category: The category to which the item belongs.
+        - estimated_value: The estimated value of the item.
+
+    Returns:
+        A JSON response confirming the item was added along with the new item_id.
+    """
+    data = request.json
+    seller_id = data.get('seller_id')
+    title = data.get('title')
+    description = data.get('description')
+    category = data.get('category')
+    estimated_value = data.get('estimated_value')
+    
+    if not (seller_id and title and estimated_value and category):
+        return make_response(jsonify({
+            "error": "Missing required fields (seller_id, title, estimated_value, category)"
+        }), 400)
+    
+    query = """
+        INSERT INTO Items (user_id, title, description, category, estimated_value, status)
+        VALUES (%s, %s, %s, %s, %s, 'Available')
+    """
+    cursor = db.get_db().cursor()
+    cursor.execute(query, (seller_id, title, description, category, estimated_value))
+    db.get_db().commit()
+    new_item_id = cursor.lastrowid
+    
+    return make_response(jsonify({"message": "Item added successfully", "item_id": new_item_id}), 200)
