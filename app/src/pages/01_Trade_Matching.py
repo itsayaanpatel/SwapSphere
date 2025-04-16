@@ -10,7 +10,7 @@ SideBarLinks()
 
 st.title('View My Trades')
 
-user_id = st.text_input("Enter Your User ID")
+user_id = st.text_input("Enter Your User Name: ")
 
 if user_id:
     response = requests.get(f"http://localhost:4000/trades/{user_id}")
