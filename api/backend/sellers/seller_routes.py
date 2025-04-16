@@ -145,3 +145,64 @@ def add_new_item():
     new_item_id = cursor.lastrowid
     
     return make_response(jsonify({"message": "Item added successfully", "item_id": new_item_id}), 200)
+
+    
+@seller.route('/items/<int:item_id>', methods=['PUT'])
+def update_item(item_id):
+    """
+    PUT /seller/items/<item_id>
+
+    Updates the details of an existing item in the seller's inventory.
+    Expects a JSON payload with fields to update, such as:
+        - title
+        - description
+        - category
+        - estimated_value
+        - status (optional, e.g., 'Available', 'Traded', or 'Pending')
+
+    Parameters:
+        item_id (int): The ID of the item to update.
+
+    Returns:
+        A JSON response confirming that the item was updated successfully.
+    """
+    data = request.json
+    title = data.get('title')
+    description = data.get('description')
+    category = data.get('category')
+    estimated_value = data.get('estimated_value')
+    status = data.get('status', 'Available')
+    
+    if not (title and description and estimated_value and category):
+        return make_response(jsonify({"error": "Missing required fields for update"}), 400)
+    
+    query = """
+        UPDATE Items
+        SET title = %s, description = %s, category = %s, estimated_value = %s, status = %s
+        WHERE item_id = %s
+    """
+    cursor = db.get_db().cursor()
+    cursor.execute(query, (title, description, category, estimated_value, status, item_id))
+    db.get_db().commit()
+    
+    return make_response(jsonify({"message": f"Item {item_id} updated successfully"}), 200)
+
+@seller.route('/items/<int:item_id>', methods=['DELETE'])
+def delete_item(item_id):
+    """
+    DELETE /seller/items/<item_id>
+
+    Deletes an item from the seller's inventory.
+    
+    Parameters:
+        item_id (int): The ID of the item to delete.
+    
+    Returns:
+        A JSON response confirming that the item has been removed.
+    """
+    query = "DELETE FROM Items WHERE item_id = %s"
+    cursor = db.get_db().cursor()
+    cursor.execute(query, (item_id,))
+    db.get_db().commit()
+    
+    return make_response(jsonify({"message": f"Item {item_id} removed successfully"}), 200)
