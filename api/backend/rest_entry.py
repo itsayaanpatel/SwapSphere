@@ -7,6 +7,25 @@ from backend.simple.simple_routes import simple_routes
 import os
 from dotenv import load_dotenv
 
+
+# simple routes
+from backend.simple.simple_routes import simple_routes
+
+# customer & product
+from backend.customers.customer_routes     import customers
+from backend.products.products_routes      import products
+
+
+# buyer & seller
+from backend.buyers.buyer_routes           import buyer
+
+
+# item routes (in item_routes folder)
+
+# trades
+
+# admin (users, fraud, logs, analytics, ML)
+
 def create_app():
     app = Flask(__name__)
 
@@ -42,6 +61,7 @@ def create_app():
     app.register_blueprint(simple_routes)
     app.register_blueprint(customers,   url_prefix='/c')
     app.register_blueprint(products,    url_prefix='/p')
+    app.register_blueprint(buyer, url_prefix='/b')
 
     # Don't forget to return the app object
     return app
