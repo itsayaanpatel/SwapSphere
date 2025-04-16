@@ -18,7 +18,7 @@ from modules.nav import SideBarLinks
 st.set_page_config(layout='wide')
 
 # Display customized sidebar links for the Buyer role.
-SideBarLinks()
+SideBarLinks(show_home=True)
 
 st.title(f"Welcome Buyer, {st.session_state['first_name']}.")
 st.write('### What would you like to do today?')
