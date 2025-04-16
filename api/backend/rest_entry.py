@@ -20,7 +20,7 @@ from backend.buyers.buyer_routes           import buyer
 from backend.sellers.seller_routes         import seller
 
 # item routes (in item_routes folder)
-from backend.items.item_routes         import items
+from backend.items.item_routes             import items
 
 # trades
 from backend.trades.trade_routes           import trades

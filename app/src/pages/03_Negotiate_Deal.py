@@ -14,7 +14,7 @@ trade_id = st.text_input("Enter Trade ID")
 
 if trade_id:
     # Fetch current trade details
-    response = requests.get(f"http://api:4000/negotiate_deal/{trade_id}")
+    response = requests.get(f"http://localhost:4000/negotiate_deal/{trade_id}")
     if response.status_code == 200:
         trade = response.json()
         st.write("Current Trade Details:")
@@ -24,7 +24,7 @@ if trade_id:
 
         if st.button("Submit Cash Proposal", type="primary"):
             update_response = requests.put(
-                f"http://api:4000/negotiate_deal/{trade_id}",
+                f"http://localhost:4000/negotiate_deal/{trade_id}",
                 json={"cash_adjustment": new_cash_adjustment}
             )
             if update_response.status_code == 200:

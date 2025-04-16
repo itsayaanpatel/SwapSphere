@@ -12,7 +12,7 @@ def show():
     
     # Get active negotiations from API
     negotiations = requests.get(
-        f"http://api:5000/api/negotiations/user/{st.session_state.user_id}"
+        f"http://localhost:5000/api/negotiations/user/{st.session_state.user_id}"
     ).json()
     
     # Section 1: Active Chats
@@ -26,7 +26,7 @@ def show():
         # Display chat history
         negotiation_id = selected_negotiation.split("#")[1].split(" ")[0]
         messages = requests.get(
-            f"http://api:5000/api/negotiations/{negotiation_id}/messages"
+            f"http://localhost:5000/api/negotiations/{negotiation_id}/messages"
         ).json()
         
         for msg in messages:
@@ -52,7 +52,7 @@ def show():
         new_message = st.text_area("Type your message...", key="chat_input")
         if st.button("Send Message"):
             requests.post(
-                f"http://api:5000/api/negotiations/{negotiation_id}/messages",
+                f"http://localhost:5000/api/negotiations/{negotiation_id}/messages",
                 json={
                     "content": new_message,
                     "sender_id": st.session_state.user_id
@@ -79,7 +79,7 @@ def show():
             st.write("")  # Spacer
             if st.button("Submit Offer", type="primary"):
                 response = requests.put(
-                    f"http://api:5000/api/negotiations/{negotiation_id}",
+                    f"http://localhost:5000/api/negotiations/{negotiation_id}",
                     json={"new_offer": new_offer}
                 )
                 st.success("Offer submitted!")
