@@ -29,8 +29,8 @@ if st.button('View Trade Frequency Trends', type='primary', use_container_width=
 
 # Option 2: View Most-Traded Item Categories (to refine recommendations)
 if st.button('View Most-Traded Item Categories', type='primary', use_container_width=True):
-    st.switch_page('pages/32_Trade_Categories.py')
+    st.switch_page('pages/32_Top_Traded_Categories.py')
 
 # Option 3: Export Analytics Reports (for sharing insights)
 if st.button('Export Analytics Reports', type='primary', use_container_width=True):
-    st.switch_page('pages/33_Export_Reports.py')
+    st.switch_page('pages/33_Export_Trade_Report.py')

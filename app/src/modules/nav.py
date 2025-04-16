@@ -81,6 +81,14 @@ def UserManagementNav():
 def DataAnalystHomeNav():
     st.sidebar.page_link("pages/30_Data_Analyst_Home.py", label="Data Analyst Home", icon="📊")
 
+def TradeFrequencyNav():
+    st.sidebar.page_link("pages/31_Trade_Frequency.py", label="Trade Frequency Trends", icon="📈")
+
+def TradeCategoriesNav():
+    st.sidebar.page_link("pages/32_Top_Traded_Categories.py", label="Most-Traded Categories", icon="📊")
+
+def ExportReportsNav():
+    st.sidebar.page_link("pages/33_Export_Trade_Report.py", label="Export Reports", icon="📤")
 
 # --------------------------------Links Function -----------------------------------------------
 def SideBarLinks(show_home=False):
@@ -127,6 +135,9 @@ def SideBarLinks(show_home=False):
             UserManagementNav()
         elif role == "data_analyst":
             DataAnalystHomeNav()
+            TradeFrequencyNav()
+            TradeCategoriesNav()
+            ExportReportsNav()
         # You may add additional roles here when the pages are done
 
     AboutPageNav()
