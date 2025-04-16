@@ -1,9 +1,5 @@
-<<<<<<<< HEAD:database-files/final.sql
-CREATE DATABASE final;
-========
 DROP DATABASE IF EXISTS final;
 CREATE DATABASE IF NOT EXISTS final;
->>>>>>>> 2d93fed (fixed databsae files):database-files/00_finaldb.sql
 USE final;
 CREATE TABLE Usersgit  (
     user_id BIGINT AUTO_INCREMENT PRIMARY KEY,
