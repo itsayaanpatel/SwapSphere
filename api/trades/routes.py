@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from api.models import db, Trade # type: ignore
+from api.models import db, Trade
 
 trades_bp = Blueprint('trades', __name__)
 
