@@ -19,7 +19,7 @@ if not seller_id:
     seller_id = st.text_input("Enter your Seller ID:")
 
 if seller_id:
-    url = f"http://localhost:4000/seller/trade_history?seller_id={seller_id}"
+    url = f"http://api:4000/seller/trade_history?seller_id={seller_id}"
     response = requests.get(url)
     if response.status_code == 200:
         trade_history = response.json()

@@ -20,7 +20,7 @@ st.title("User Management")
 
 # 1) Fetch all users
 try:
-    resp = requests.get("http://localhost:4000/users")
+    resp = requests.get("http://api:4000/users")
     resp.raise_for_status()
     users = resp.json()
 except Exception as e:
@@ -49,7 +49,7 @@ for u in users:
         if st.button(action_label, key=f"user_{u['user_id']}"):
             try:
                 update = {"trust_score": new_score}
-                upd_resp = requests.put(f"http://localhost:4000/users/{u['user_id']}", json=update)
+                upd_resp = requests.put(f"http://api:4000/users/{u['user_id']}", json=update)
                 upd_resp.raise_for_status()
                 st.success(f"{action_label}ned user {u['username']} (ID {u['user_id']})")
                 st.experimental_rerun()

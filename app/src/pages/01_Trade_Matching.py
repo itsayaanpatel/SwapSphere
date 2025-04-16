@@ -13,7 +13,7 @@ st.title('View My Trades')
 user_id = st.text_input("Enter Your User Name: ")
 
 if user_id:
-    response = requests.get(f"http://localhost:4000/trades/{user_id}")
+    response = requests.get(f"http://api:4000/trades/{user_id}")
     if response.status_code == 200:
         trades = response.json()
         st.write("Your Trades:")

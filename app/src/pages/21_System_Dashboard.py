@@ -23,7 +23,7 @@ st.write("Overview of platform health and activity. Metrics below:")
 with st.spinner("Loading metrics..."):
     # Total users
     try:
-        users_resp = requests.get("http://localhost:4000/users")
+        users_resp = requests.get("http://api:4000/users")
         users_resp.raise_for_status()
         total_users = len(users_resp.json())
     except Exception:
@@ -31,7 +31,7 @@ with st.spinner("Loading metrics..."):
 
     # Total trades
     try:
-        trades_resp = requests.get("http://localhost:4000/trades/count")
+        trades_resp = requests.get("http://api:4000/trades/count")
         trades_resp.raise_for_status()
         total_trades = trades_resp.json().get("count", "n/a")
     except Exception:
@@ -39,7 +39,7 @@ with st.spinner("Loading metrics..."):
 
     # Avg trades per day (if available)
     try:
-        avg_resp = requests.get("http://localhost:4000/trades/average_daily")
+        avg_resp = requests.get("http://api:4000/trades/average_daily")
         avg_resp.raise_for_status()
         avg_daily = avg_resp.json().get("average", "n/a")
     except Exception:
@@ -47,7 +47,7 @@ with st.spinner("Loading metrics..."):
 
     # Recent logs
     try:
-        logs_resp = requests.get("http://localhost:4000/logs")
+        logs_resp = requests.get("http://api:4000/logs")
         logs_resp.raise_for_status()
         df_logs = pd.DataFrame(logs_resp.json())
     except Exception:

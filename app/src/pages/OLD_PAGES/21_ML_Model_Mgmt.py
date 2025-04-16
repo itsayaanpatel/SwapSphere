@@ -24,5 +24,5 @@ st.button('Test Model 01',
 if st.button('Model 1 - get predicted value for 10, 25', 
              type = 'primary',
              use_container_width=True):
-  results = requests.get('http://localhost:4000/c/prediction/10/25').json()
+  results = requests.get('http://api:4000/c/prediction/10/25').json()
   st.dataframe(results)
