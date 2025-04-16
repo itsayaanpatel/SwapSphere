@@ -23,10 +23,12 @@ from backend.sellers.seller_routes         import seller
 from api.backend.items.item_routes         import items
 
 # trades
-from backend.trades.trade_routes      import trades
-
+from backend.trades.trade_routes           import trades
 
 # admin (users, fraud, logs, analytics, ML)
+from backend.analytics.analytics_routes    import analytics
+
+
 
 def create_app():
     app = Flask(__name__)
@@ -68,6 +70,7 @@ def create_app():
     app.register.blueprint(items,       url_prefix='/i')
     app.register_blueprint(seller,      url_prefix='/s')
     app.register_blueprint(trades,      url_prefix='/t')
+    app.register_blueprint(analytics,   url_prefix='/a')
 
     # Don't forget to return the app object
     return app
