@@ -15,10 +15,9 @@ from backend.simple.simple_routes import simple_routes
 from backend.customers.customer_routes     import customers
 from backend.products.products_routes      import products
 
-
 # buyer & seller
 from backend.buyers.buyer_routes           import buyer
-
+from backend.sellers.seller_routes         import seller
 
 # item routes (in item_routes folder)
 
@@ -61,7 +60,8 @@ def create_app():
     app.register_blueprint(simple_routes)
     app.register_blueprint(customers,   url_prefix='/c')
     app.register_blueprint(products,    url_prefix='/p')
-    app.register_blueprint(buyer, url_prefix='/b')
+    app.register_blueprint(buyer,       url_prefix='/b')
+    app.register_blueprint(seller,    url_prefix='/s')
 
     # Don't forget to return the app object
     return app
