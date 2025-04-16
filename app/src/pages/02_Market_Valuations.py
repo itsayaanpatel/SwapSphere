@@ -10,7 +10,7 @@ SideBarLinks()
 
 st.title('Market Valuations')
 
-response = requests.get("http://localhost:4000/market_valuations")
+response = requests.get("http://api:4000/market_valuations")
 if response.status_code == 200:
     valuations = response.json()
     st.write("Real-Time Market Valuations:")
