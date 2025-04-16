@@ -22,7 +22,7 @@ st.write("Use this page to train, test, and make predictions with Model 01.")
 # --- Train Model 01 ---
 if st.button("Train Model 01", type="primary", use_container_width=True):
     try:
-        response = requests.post("http://localhost:4000/c/train")
+        response = requests.post("http://api:4000/c/train")
         response.raise_for_status()
         st.success(f"Training successful: {response.text}")
     except Exception as e:
@@ -31,7 +31,7 @@ if st.button("Train Model 01", type="primary", use_container_width=True):
 # --- Test Model 01 ---
 if st.button("Test Model 01", type="secondary", use_container_width=True):
     try:
-        response = requests.post("http://localhost:4000/c/test")
+        response = requests.post("http://api:4000/c/test")
         response.raise_for_status()
         st.success(f"Test successful: {response.text}")
     except Exception as e:
@@ -44,7 +44,7 @@ with st.form("prediction_form"):
     var2 = st.number_input("Variable 02:", step=1, format="%i")
     if st.form_submit_button("Get Prediction"):
         try:
-            pred_resp = requests.get(f"http://localhost:4000/c/prediction/{var1}/{var2}")
+            pred_resp = requests.get(f"http://api:4000/c/prediction/{var1}/{var2}")
             pred_resp.raise_for_status()
             result = pred_resp.json().get("result")
             st.metric("Predicted Value", f"{result}")

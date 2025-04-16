@@ -20,7 +20,7 @@ def show():
     
     # Fetch seller analytics
     data = requests.get(
-        "http://localhost:5000/api/analytics/seller",
+        "http://api:5000/api/analytics/seller",
         params={
             "seller_id": st.session_state.user_id,
             "start_date": start_date.strftime("%Y-%m-%d"),

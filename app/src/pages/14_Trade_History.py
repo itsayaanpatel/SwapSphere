@@ -1,12 +1,6 @@
-"""
-14_Trade_History.py
-
-This page displays the trade history for a seller by querying the
-/seller/trade_history endpoint with the seller's user ID.
-"""
-
 import streamlit as st
 import requests
+import pandas as pd
 from modules.nav import SideBarLinks
 
 st.set_page_config(layout="wide")
@@ -19,10 +13,16 @@ if not seller_id:
     seller_id = st.text_input("Enter your Seller ID:")
 
 if seller_id:
-    url = f"http://localhost:4000/seller/trade_history?seller_id={seller_id}"
+    url = f"http://api:8501/seller/trade_history?seller_id={seller_id}"
     response = requests.get(url)
     if response.status_code == 200:
-        trade_history = response.json()
-        st.dataframe(trade_history)
+        try:
+            # Try to convert response to DataFrame if it's JSON
+            trade_history = response.json()
+            df = pd.DataFrame(trade_history)
+            st.dataframe(df)
+        except ValueError:
+            # If not JSON, display as text
+            st.write(response.text)
     else:
         st.error("Failed to retrieve trade history.")

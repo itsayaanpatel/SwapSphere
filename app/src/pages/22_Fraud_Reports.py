@@ -20,7 +20,7 @@ st.title("Fraud Reports Management")
 
 # Fetch fraud reports
 try:
-    resp = requests.get("http://localhost:4000/fraud_reports")
+    resp = requests.get("http://api:4000/fraud_reports")
     resp.raise_for_status()
     reports = resp.json()
 except Exception as e:
@@ -42,7 +42,7 @@ for rep in reports:
             if st.button("Resolve", key=f"resolve_{rep['report_id']}"):
                 try:
                     update = {"status": "Resolved"}
-                    put = requests.put(f"http://localhost:4000/fraud_reports/{rep['report_id']}", json=update)
+                    put = requests.put(f"http://api:4000/fraud_reports/{rep['report_id']}", json=update)
                     put.raise_for_status()
                     st.success("Report marked Resolved.")
                     st.experimental_rerun()
@@ -53,7 +53,7 @@ for rep in reports:
             if st.button("Dismiss", key=f"dismiss_{rep['report_id']}"):
                 try:
                     update = {"status": "Dismissed"}
-                    put = requests.put(f"http://localhost:4000/fraud_reports/{rep['report_id']}", json=update)
+                    put = requests.put(f"http://api:4000/fraud_reports/{rep['report_id']}", json=update)
                     put.raise_for_status()
                     st.success("Report Dismissed.")
                     st.experimental_rerun()
@@ -64,7 +64,7 @@ for rep in reports:
             if st.button("Reopen", key=f"reopen_{rep['report_id']}"):
                 try:
                     update = {"status": "Under Review"}
-                    put = requests.put(f"http://localhost:4000/fraud_reports/{rep['report_id']}", json=update)
+                    put = requests.put(f"http://api:4000/fraud_reports/{rep['report_id']}", json=update)
                     put.raise_for_status()
                     st.success("Report reopened for review.")
                     st.experimental_rerun()
