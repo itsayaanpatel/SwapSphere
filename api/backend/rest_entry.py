@@ -62,6 +62,7 @@ def create_app():
     app.register_blueprint(products,    url_prefix='/p')
     app.register_blueprint(buyer,       url_prefix='/b')
     app.register_blueprint(seller,    url_prefix='/s')
+    app.register.blueprint(items,     url_prefix='i')
 
     # Don't forget to return the app object
     return app
