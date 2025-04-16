@@ -3,6 +3,10 @@ import requests
 import pandas as pd
 import plotly.express as px
 
+from modules.nav import SideBarLinks
+st.set_page_config(layout='wide')
+SideBarLinks()
+
 def show():
     st.title("📊 Inventory Analytics")
     st.markdown("Performance metrics for your listings")

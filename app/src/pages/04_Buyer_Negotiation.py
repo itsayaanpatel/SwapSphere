@@ -2,6 +2,10 @@ import streamlit as st
 import requests
 from datetime import datetime
 
+from modules.nav import SideBarLinks
+st.set_page_config(layout='wide')
+SideBarLinks()
+
 def show():
     st.title("💬 Negotiation Console")
     st.markdown("Communicate with sellers and finalize deals")
