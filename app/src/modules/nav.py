@@ -57,14 +57,14 @@ def AdminHomeNav():
 #def FraudDashboardNav():
    # st.sidebar.page_link("pages/06_Admin_Fraud_Dashboard.py", label="Fraud Dashboard", icon="🚨")
 
-#Not sure if we will do the same thing as was done in the template so I commented this out
+#Not sure if we will do the same thing as was done in the template, so I commented this out
 #def MLModelNav():
   #  st.sidebar.page_link("pages/21_ML_Model_Mgmt.py", label="ML Model Management", icon="🏢")
 
-def UserManagementNav():
-    # If you add a user management page, uncomment or add here:
+#def UserManagementNav(): IGNORE -- UNLESS we add a user management page
+    # If we add a user management page, uncomment or add here:
     # st.sidebar.page_link("pages/24_User_Management.py", label="User Management", icon="👥")
-    pass
+#   pass
 
 
 #### ------------------------ For Data Analyst Role ------------------------
