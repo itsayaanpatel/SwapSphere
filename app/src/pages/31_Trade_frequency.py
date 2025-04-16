@@ -6,7 +6,7 @@ from modules.nav import SideBarLinks
 
 st.set_page_config(layout="wide")
 SideBarLinks()
-st.title("📈 Trade Frequency Over Time")
+st.title("Trade Frequency Over Time")
 
 API_BASE = "http://localhost:5000/api"
 

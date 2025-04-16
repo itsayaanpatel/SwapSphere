@@ -4,7 +4,7 @@ from modules.nav import SideBarLinks
 
 st.set_page_config(layout="wide")
 SideBarLinks()
-st.title("📤 Export Trade Summary Report")
+st.title("Export Trade Summary Report")
 
 API_BASE = "http://localhost:5000/api"
 

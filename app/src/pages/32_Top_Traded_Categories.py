@@ -6,7 +6,7 @@ from modules.nav import SideBarLinks
 
 st.set_page_config(layout="wide")
 SideBarLinks()
-st.title("🏷️ Top Traded Item Categories")
+st.title("Top Traded Item Categories")
 
 API_BASE = "http://localhost:5000/api"
 
