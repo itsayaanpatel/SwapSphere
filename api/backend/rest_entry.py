@@ -27,6 +27,7 @@ from backend.trades.trade_routes      import trades
 
 
 # admin (users, fraud, logs, analytics, ML)
+from backend.admin.admin_routes      import admin_bp
 
 def create_app():
     app = Flask(__name__)
@@ -68,6 +69,7 @@ def create_app():
     app.register.blueprint(items,       url_prefix='/i')
     app.register_blueprint(seller,      url_prefix='/s')
     app.register_blueprint(trades,      url_prefix='/t')
+    app.register_blueprint(admin_bp,      url_prefix='/a')
 
     # Don't forget to return the app object
     return app
