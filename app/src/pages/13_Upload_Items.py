@@ -36,7 +36,7 @@ with st.form("upload_item_form"):
             "category": category,
             "estimated_value": estimated_value
         }
-        response = requests.post("http://api:4000/seller/items", json=payload)
+        response = requests.post("http://localhost:4000/seller/items", json=payload)
         if response.status_code == 200:
             st.success("Item uploaded successfully!")
         else:

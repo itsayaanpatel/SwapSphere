@@ -20,7 +20,7 @@ if not seller_id:
     seller_id = st.text_input("Enter your Seller ID:")
 
 if seller_id:
-    url = f"http://api:4000/seller/items?seller_id={seller_id}"
+    url = f"http://localhost:4000/seller/items?seller_id={seller_id}"
     response = requests.get(url)
     if response.status_code == 200:
         items = response.json()
@@ -35,7 +35,7 @@ if seller_id:
                 new_value = st.number_input("Estimated Value ($)", value=float(item['estimated_value']), step=1.0, format="%.2f")
                 submit_update = st.form_submit_button("Update Item")
                 if submit_update:
-                    update_url = f"http://api:4000/seller/items/{item['item_id']}"
+                    update_url = f"http://localhost:4000/seller/items/{item['item_id']}"
                     update_payload = {
                         "title": new_title,
                         "description": new_description,
@@ -49,7 +49,7 @@ if seller_id:
                     else:
                         st.error("Failed to update item.")
             if st.button("Delete Item", key=f"delete_{item['item_id']}"):
-                delete_url = f"http://api:4000/seller/items/{item['item_id']}"
+                delete_url = f"http://localhost:4000/seller/items/{item['item_id']}"
                 delete_response = requests.delete(delete_url)
                 if delete_response.status_code == 200:
                     st.success("Item deleted successfully!")
