@@ -42,7 +42,7 @@ with st.expander("Update Preferences"):
         trade_radius = st.slider(
             "Maximum Trade Distance (miles)",
             10, 500,
-            value=int(st.session_state.get('trade_radius', 100))
+            value=int(st.session_state.get('trade_radius', 100)))
         
         if st.form_submit_button("Save Preferences"):
             st.session_state['contact_preference'] = contact_pref
