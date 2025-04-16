@@ -21,7 +21,7 @@ from backend.buyers.buyer_routes           import buyer
 
 
 # item routes (in item_routes folder)
-
+from backend.items.routes               
 # trades
 
 # admin (users, fraud, logs, analytics, ML)
