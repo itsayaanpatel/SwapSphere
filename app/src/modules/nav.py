@@ -113,7 +113,7 @@ def SideBarLinks(show_home=False):
             AdminHomeNav()
             #FraudDashboardNav() see comments above under admin
             #MLModelNav() see comments above under admin
-            UserManagementNav()
+            #UserManagementNav() see
         elif role == "data_analyst":
             DataAnalystHomeNav()
         # You may add additional roles here when the pages are done
