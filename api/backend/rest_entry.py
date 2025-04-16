@@ -21,7 +21,10 @@ from backend.sellers.seller_routes         import seller
 
 # item routes (in item_routes folder)
 from api.backend.items.item_routes         import items
+
 # trades
+from backend.trades.trade_routes      import trades
+
 
 # admin (users, fraud, logs, analytics, ML)
 
@@ -61,8 +64,10 @@ def create_app():
     app.register_blueprint(customers,   url_prefix='/c')
     app.register_blueprint(products,    url_prefix='/p')
     app.register_blueprint(buyer,       url_prefix='/b')
-    app.register_blueprint(seller,    url_prefix='/s')
-    app.register.blueprint(items,     url_prefix='/i')
+    app.register_blueprint(seller,      url_prefix='/s')
+    app.register.blueprint(items,       url_prefix='/i')
+    app.register_blueprint(seller,      url_prefix='/s')
+    app.register_blueprint(trades,      url_prefix='/t')
 
     # Don't forget to return the app object
     return app
