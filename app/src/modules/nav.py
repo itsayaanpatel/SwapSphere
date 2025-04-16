@@ -47,7 +47,7 @@ def TradeHistoryNav():
     st.sidebar.page_link("pages/14_Trade_History.py", label="Trade History", icon="📜")
 
 def ManageListingsNav():
-    st.sidebar.page_link("pages/15_Manage_Listing.py", label="Manage Listings", icon="🛠️")
+    st.sidebar.page_link("pages/15_Manage_Listings.py", label="Manage Listings", icon="🛠️")
 
 #### ------------------------ For System Admin Role ------------------------
 def AdminHomeNav():
