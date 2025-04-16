@@ -26,7 +26,7 @@ st.write('### Select an analytical function:')
 # Option 1: View Trade Frequency Trends (for data insights)
 if st.button('View Trade Frequency Trends', type='primary', use_container_width=True):
     st.switch_page('pages/31_Trade_Frequency.py')
-
+ 
 # Option 2: View Most-Traded Item Categories (to refine recommendations)
 if st.button('View Most-Traded Item Categories', type='primary', use_container_width=True):
     st.switch_page('pages/32_Top_Traded_Categories.py')
