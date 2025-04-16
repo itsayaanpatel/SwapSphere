@@ -20,7 +20,7 @@ from modules.nav import SideBarLinks
 st.set_page_config(layout='wide')
 
 # Display sidebar links appropriate for a Seller.
-SideBarLinks()
+SideBarLinks(show_home=True)
 
 st.title(f"Welcome Seller, {st.session_state['first_name']}.")
 st.write('')

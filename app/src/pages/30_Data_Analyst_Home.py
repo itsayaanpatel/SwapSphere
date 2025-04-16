@@ -18,7 +18,7 @@ from modules.nav import SideBarLinks
 
 st.set_page_config(layout='wide')
 
-SideBarLinks()
+SideBarLinks(show_home=True)
 
 st.title(f"Welcome Data Analyst, {st.session_state['first_name']}.")
 st.write('### Select an analytical function:')
