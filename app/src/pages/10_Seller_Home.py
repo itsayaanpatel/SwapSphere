@@ -29,7 +29,7 @@ st.write('### What would you like to do today?')
 # Seller Use Case: Upload New Items
 if st.button('Upload New Items', type='primary', use_container_width=True):
     # This page should later implement functionality for bulk uploading or individual item uploads.
-    st.switch_page('pages/13_Upload_Items.py')
+    st.switch_page('13_Upload_Items')
 
 # Seller Use Case: View Trade History
 if st.button('View Trade History', type='primary', use_container_width=True):
