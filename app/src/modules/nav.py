@@ -53,6 +53,16 @@ def ManageListingsNav():
 def AdminHomeNav():
     st.sidebar.page_link("pages/20_Admin_Home.py", label="Admin Home", icon="🖥️")
 
+
+def SystemDashboardNav():
+    st.sidebar.page_link("pages/21_System_Dashboard.py", label="System Dashboard", icon="📊")
+
+def FraudReportsNav():
+    st.sidebar.page_link("pages/22_Fraud_Reports.py", label="Fraud Reports", icon="🚨")
+
+def MLModelMgmtNav():
+    st.sidebar.page_link("pages/23_ML_Model_Mgmt.py", label="ML Model Management", icon="🤖")
+
 #Placeholder for whatever page we decide to use here
 #def FraudDashboardNav():
    # st.sidebar.page_link("pages/06_Admin_Fraud_Dashboard.py", label="Fraud Dashboard", icon="🚨")
@@ -61,10 +71,10 @@ def AdminHomeNav():
 #def MLModelNav():
   #  st.sidebar.page_link("pages/21_ML_Model_Mgmt.py", label="ML Model Management", icon="🏢")
 
-#def UserManagementNav(): IGNORE -- UNLESS we add a user management page
+def UserManagementNav(): 
     # If we add a user management page, uncomment or add here:
-    # st.sidebar.page_link("pages/24_User_Management.py", label="User Management", icon="👥")
-#   pass
+     st.sidebar.page_link("pages/24_User_Management.py", label="User Management", icon="👥")
+
 
 
 #### ------------------------ For Data Analyst Role ------------------------
@@ -111,9 +121,10 @@ def SideBarLinks(show_home=False):
             SellerProfileNav()
         elif role == "administrator":
             AdminHomeNav()
-            #FraudDashboardNav() see comments above under admin
-            #MLModelNav() see comments above under admin
-            #UserManagementNav() see
+            SystemDashboardNav()
+            FraudReportsNav()
+            MLModelMgmtNav()
+            UserManagementNav()
         elif role == "data_analyst":
             DataAnalystHomeNav()
         # You may add additional roles here when the pages are done
