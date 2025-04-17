@@ -79,7 +79,7 @@ def create_app():
     app.register_blueprint(market_valuations, url_prefix='/')
     app.register_blueprint(seller,      url_prefix='/seller')
     app.register_blueprint(items,       url_prefix='/')
-    app.register_blueprint(trades,      url_prefix='/')
+    app.register_blueprint(trades,      url_prefix='/t')
     app.register_blueprint(cash_deals,      url_prefix='/')
     app.register_blueprint(analytics,   url_prefix='/')
     app.register_blueprint(admin_bp,    url_prefix='/')
