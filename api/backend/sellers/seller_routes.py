@@ -72,8 +72,8 @@ def get_seller_items():
     
     return make_response(jsonify(items), 200)
 
-@seller.route('/trade_history', methods=['GET'])
-def get_trade_history():
+@seller.route('/trade_history/<int:user_id>', methods=['GET'])
+def get_trade_history(user_id):
     """
     GET /seller/trade_history
 
@@ -99,6 +99,7 @@ def get_trade_history():
         JOIN Trade_Items ti ON t.trade_id = ti.trade_id
         JOIN Items i ON ti.item_id = i.item_id
         WHERE ti.offered_by = %s
+        WHERE t.proposer_id = {user_id}
         ORDER BY t.created_at DESC
     """
     cursor = db.get_db().cursor()
