@@ -8,7 +8,7 @@ st.set_page_config(layout="wide")
 SideBarLinks()
 st.title("Trade Frequency Over Time")
 
-API_BASE = "http://localhost:5000/api"
+API_BASE = "http://localhost:4000/api"
 
 
 try:
