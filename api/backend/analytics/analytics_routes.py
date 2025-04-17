@@ -52,13 +52,14 @@ def export_summary():
 
     cursor = db.get_db().cursor()
     cursor.execute("SELECT COUNT(*) FROM Trades")
-    total_trades = cursor.fetchone()
+    total_trades = list(cursor.fetchone().values())[0]
 
     cursor.execute("SELECT ROUND(AVG(fairness_score), 2) FROM Trades")
-    avg_fairness = cursor.fetchone()
+    avg_fairness = list(cursor.fetchone().values())[0]
 
     cursor.execute("SELECT COUNT(*) FROM Fraud_Reports")
-    total_reports = cursor.fetchone()
+    total_reports = list(cursor.fetchone().values())[0]
+
 
     summary = {
         "total_trades": total_trades,
