@@ -32,6 +32,9 @@ from backend.analytics.analytics_routes    import analytics
 # market valuations
 from backend.products.market_valuations    import market_valuations
 
+# negotiate deals
+from backend.buyers.buyer_negotiation       import negotiation
+
 
 
 def create_app():
@@ -76,6 +79,7 @@ def create_app():
     app.register_blueprint(trades,      url_prefix='/')
     app.register_blueprint(analytics,   url_prefix='/')
     app.register_blueprint(admin_bp,    url_prefix='/')
+    app.register_blueprint(negotiation, url_prefix='/')
 
     # Don't forget to return the app object
     return app
