@@ -14,10 +14,10 @@ API_BASE = "http://api:4000"
 try:
     response = requests.get(f"{API_BASE}/analytics/trade-frequency")
     data = response.json()
-    df = pd.DataFrame(data, format='ISO8601')
+    df = pd.DataFrame(data)
 
     if not df.empty:
-        df['trade_date'] = pd.to_datetime(df['trade_date'])
+        df['trade_date'] = pd.to_datetime(df['trade_date'], format='ISO8601')
         chart = alt.Chart(df).mark_line(point=True).encode(
             x='trade_date:T',
             y='num_trades:Q'
