@@ -89,21 +89,17 @@ def get_trade_history(user_id):
             - cash_adjustment (from the Trades table)
             - created_at (from the Trades table)
     """
-    seller_id = request.args.get('seller_id')
-    if not seller_id:
-        return make_response(jsonify({"error": "seller_id query parameter is required"}), 400)
-    
+
     query = """
         SELECT t.trade_id, i.item_id, i.title, t.status, t.cash_adjustment, t.created_at
         FROM Trades t
         JOIN Trade_Items ti ON t.trade_id = ti.trade_id
         JOIN Items i ON ti.item_id = i.item_id
         WHERE ti.offered_by = %s
-        WHERE t.proposer_id = {user_id}
         ORDER BY t.created_at DESC
     """
     cursor = db.get_db().cursor()
-    cursor.execute(query, (seller_id,))
+    cursor.execute(query, (user_id))
     trade_history = cursor.fetchall()
     
     return make_response(jsonify(trade_history), 200)
