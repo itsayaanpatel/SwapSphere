@@ -17,7 +17,7 @@ try:
     df = pd.DataFrame(data)
 
     if not df.empty:
-        df['trade_date'] = pd.to_datetime(df['trade_date'], format='ISO8601')
+        df['trade_date'] = pd.to_datetime(df['trade_date'], format='mixed')
         chart = alt.Chart(df).mark_line(point=True).encode(
             x='trade_date:T',
             y='num_trades:Q'
