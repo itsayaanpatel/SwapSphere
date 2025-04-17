@@ -18,7 +18,7 @@ def negotiate_cash_deal(trade_id):
     query = f'''
         SELECT t.trade_id, t.proposer_id, t.receiver_id, t.status, t.fairness_score, t.cash_adjustment
         FROM Trades t
-        WHERE t.trade_id = {trade_id}
+        WHERE t.trade_id = {trade_id} AND t.status = 'Available'
     '''
     cursor.execute(query)
     
