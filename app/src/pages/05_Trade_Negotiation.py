@@ -1,3 +1,5 @@
+import streamlit as st
+
 # --- UI Components ---
 def display_item_comparison(items):
     your_items = [i for i in items if i['offered_by'] == st.session_state.user_id]
