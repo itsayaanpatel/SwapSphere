@@ -39,6 +39,7 @@ from backend.cash_deals                     import cash_deals
 
 
 
+
 def create_app():
     app = Flask(__name__)
 
