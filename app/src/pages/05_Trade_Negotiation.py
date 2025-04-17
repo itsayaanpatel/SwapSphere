@@ -1,79 +1,124 @@
+# pages/05_Trade_Negotiation.py
 import streamlit as st
+import requests
+from modules.nav import SideBarLinks
 
-# --- UI Components ---
-def display_item_comparison(items):
-    your_items = [i for i in items if i['offered_by'] == st.session_state.user_id]
-    their_items = [i for i in items if i['offered_by'] != st.session_state.user_id]
-    
-    col1, col2 = st.columns(2)
-    with col1:
-        st.subheader("Your Items")
-        for item in your_items:
-            with st.container(border=True):
-                st.write(f"**{item['title']}**")
-                st.write(f"Value: ${item['estimated_value']}")
-    
-    with col2:
-        st.subheader("Their Items")
-        for item in their_items:
-            with st.container(border=True):
-                st.write(f"**{item['title']}**")
-                st.write(f"Value: ${item['estimated_value']}")
-                st.write(f"From: {item['username']}")
-
-# --- Main UI ---
+st.set_page_config(layout='wide')
+SideBarLinks()
 st.title("Trade Negotiation")
 
-if 'user_id' not in st.session_state:
-    st.error("Please login first")
+# Base API URL (can be overridden in session state)
+API_BASE = st.session_state.get('api_base', 'http://api:4000')
+
+# --- Step 1: Get User ID ---
+user_id = st.text_input("Enter Your User ID:")
+if not user_id:
+    st.info("Please enter your User ID to load your trades.")
     st.stop()
 
-if not st.session_state.trade_id:
-    st.warning("No trade selected. Redirecting...")
-    st.switch_page("pages/01_Trade_Matching.py")
+# --- Step 2: Fetch all active trades for this user ---
+try:
+    trades_resp = requests.get(f"{API_BASE}/trades/{user_id}")
+    trades_resp.raise_for_status()
+    trades = trades_resp.json()
+except Exception as e:
+    st.error(f"Failed to fetch trades: {e}")
     st.stop()
 
-trade = get_trade_details(st.session_state.trade_id)
-items = get_trade_items(st.session_state.trade_id)
-messages = get_messages(st.session_state.trade_id)
+if not trades:
+    st.warning("No active trades found for this user.")
+    st.stop()
 
-# Set receiver ID (the other party)
-if st.session_state.user_id == trade['proposer_id']:
-    st.session_state.receiver_id = trade['receiver_id']
-else:
-    st.session_state.receiver_id = trade['proposer_id']
+# --- Step 3: Select a trade ---
+trade_options = [f"Trade #{t['trade_id']} (with {t.get('other_party','')}): {t['status']}" for t in trades]
+selection = st.selectbox("Select a trade to negotiate:", trade_options)
+selected_index = trade_options.index(selection)
+trade_id = trades[selected_index]['trade_id']
+trade = trades[selected_index]
 
-# --- Layout ---
-tab1, tab2 = st.tabs(["Negotiation", "Trade Details"])
+# --- Step 4: Fetch trade-specific data ---
+# Items
+try:
+    items_resp = requests.get(f"{API_BASE}/negotiations/{trade_id}/items")
+    items_resp.raise_for_status()
+    items = items_resp.json()
+except:
+    items = []
+
+# Messages
+try:
+    msg_resp = requests.get(f"{API_BASE}/negotiations/{trade_id}/messages")
+    msg_resp.raise_for_status()
+    messages = msg_resp.json()
+except:
+    messages = []
+
+# Determine other party ID
+proposer = trade.get('proposer_id')
+receiver = trade.get('receiver_id')
+other_id = receiver if str(user_id) == str(proposer) else proposer
+
+# --- Layout Tabs ---
+tab1, tab2 = st.tabs(["Conversation", "Details & Items"])
 
 with tab1:
-    # Message History
-    st.subheader("Conversation")
-    for msg in messages:
-        with st.chat_message("user" if msg['sender_id'] == st.session_state.user_id else "assistant"):
-            st.write(f"**{msg['sender_name']}** ({msg['sent_at'].strftime('%H:%M')})")
-            st.write(msg['content'])
-    
-    # New Message
+    st.subheader("Chat History")
+    for m in messages:
+        is_me = str(m['sender_id']) == str(user_id)
+        role = 'user' if is_me else 'assistant'
+        with st.chat_message(role):
+            st.markdown(f"**{m['sender_name']}** ({m['sent_at']}):")
+            st.write(m['content'])
+
     if trade['status'] in ['Proposed', 'Pending']:
-        new_msg = st.chat_input("Type your message...")
-        if new_msg:
-            send_message(st.session_state.trade_id, st.session_state.user_id, new_msg)
-            st.rerun()
+        user_msg = st.chat_input("Type a message...")
+        if user_msg:
+            payload = {'sender_id': user_id, 'content': user_msg}
+            post_resp = requests.post(f"{API_BASE}/negotiations/{trade_id}/messages", json=payload)
+            if post_resp.ok:
+                st.experimental_rerun()
+            else:
+                st.error("Failed to send message.")
 
 with tab2:
-    display_item_comparison(items)
-    
+    st.subheader("Trade Details")
+    st.write(f"**Status:** {trade['status']}")
+    st.write(f"**Cash Adjustment:** ${trade.get('cash_adjustment', 0)}")
+
+    st.markdown("---")
+    st.subheader("Items Exchanged")
+    col1, col2 = st.columns(2)
+    your_items = [i for i in items if str(i['offered_by']) == str(user_id)]
+    their_items = [i for i in items if str(i['offered_by']) != str(user_id)]
+
+    with col1:
+        st.markdown("**Your Items**")
+        for it in your_items:
+            st.write(f"- {it['title']} (${it['estimated_value']})")
+    with col2:
+        st.markdown("**Their Items**")
+        for it in their_items:
+            st.write(f"- {it['title']} (${it['estimated_value']}) by User {it['offered_by']}")
+
+    # Actions
     if trade['status'] == 'Proposed':
         st.divider()
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("Accept Trade", type="primary"):
-                # Update trade status
-                pass
-        with col2:
-            cash_adjust = st.number_input("Cash Adjustment ($)", 
-                                        value=float(trade['cash_adjustment']))
-            if st.button("Make Counteroffer"):
-                # Update trade with new terms
-                pass
+        c1, c2 = st.columns(2)
+        with c1:
+            if st.button("Accept Trade"):
+                resp = requests.put(f"{API_BASE}/negotiations/{trade_id}/status", json={'status':'Accepted'})
+                if resp.ok:
+                    st.success("Trade accepted.")
+                    st.experimental_rerun()
+                else:
+                    st.error("Failed to accept trade.")
+        with c2:
+            new_amt = st.number_input("Propose Cash Adjustment ($)", value=float(trade.get('cash_adjustment',0)))
+            if st.button("Counteroffer"):
+                upd = {'status':'Countered', 'cash_adjustment': new_amt}
+                resp = requests.put(f"{API_BASE}/negotiations/{trade_id}/status", json=upd)
+                if resp.ok:
+                    st.success("Counteroffer sent.")
+                    st.experimental_rerun()
+                else:
+                    st.error("Failed to send counteroffer.")
