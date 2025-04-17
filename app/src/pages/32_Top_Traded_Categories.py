@@ -8,7 +8,7 @@ st.set_page_config(layout="wide")
 SideBarLinks()
 st.title("Top Traded Item Categories")
 
-API_BASE = "http://api:5000/api"
+API_BASE = "http://api:4000"
 
 try:
     response = requests.get(f"{API_BASE}/analytics/top-categories")
