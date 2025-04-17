@@ -18,8 +18,10 @@ def trade_frequency():
         ORDER BY trade_date ASC
     """)
     
-    results = [dict(zip([col[0] for col in cursor.description], row))
-               for row in cursor.fetchall()]
+    # results = [dict(zip([col[0] for col in cursor.description], row))
+    #            for row in cursor.fetchall()]
+    
+    results = cursor.fetchall()
     return make_response(jsonify(results), 200)
 
 
