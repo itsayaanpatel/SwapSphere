@@ -14,7 +14,7 @@ API_BASE = "http://api:4000"
 try:
     response = requests.get(f"{API_BASE}/analytics/trade-frequency")
     data = response.json()
-    df = pd.DataFrame(data)
+    df = pd.DataFrame(data, format='ISO8601')
 
     if not df.empty:
         df['trade_date'] = pd.to_datetime(df['trade_date'])
