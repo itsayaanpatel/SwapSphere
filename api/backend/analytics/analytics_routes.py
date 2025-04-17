@@ -39,8 +39,9 @@ def top_traded_categories():
         ORDER BY times_traded DESC
     """)
 
-    results = [dict(zip([col[0] for col in cursor.description], row))
-               for row in cursor.fetchall()]
+    # results = [dict(zip([col[0] for col in cursor.description], row))
+    #            for row in cursor.fetchall()]
+    results = cursor.fetchall()
     return make_response(jsonify(results), 200)
 
 
@@ -51,13 +52,13 @@ def export_summary():
 
     cursor = db.get_db().cursor()
     cursor.execute("SELECT COUNT(*) FROM Trades")
-    total_trades = cursor.fetchone()[0]
+    total_trades = cursor.fetchone()
 
     cursor.execute("SELECT ROUND(AVG(fairness_score), 2) FROM Trades")
-    avg_fairness = cursor.fetchone()[0]
+    avg_fairness = cursor.fetchone()
 
     cursor.execute("SELECT COUNT(*) FROM Fraud_Reports")
-    total_reports = cursor.fetchone()[0]
+    total_reports = cursor.fetchone()
 
     summary = {
         "total_trades": total_trades,
