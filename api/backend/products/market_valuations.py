@@ -35,11 +35,11 @@ def get_market_valuations():
 
     query = '''
         SELECT 
-            i.item_id, 
-            i.title, 
-            i.estimated_value, 
-            i.category,
-            (SELECT MAX(trade_id) FROM Trade_Items) AS most_recent_trade_id
+            i.item_id, i.title, i.estimated_value, i.category,
+            (SELECT 
+                MAX(trade_id) 
+                FROM Trade_Items t
+                WHERE t.item_id = i.item_id) AS trade_id
         FROM Items i
         WHERE i.status = 'Available'
     '''
