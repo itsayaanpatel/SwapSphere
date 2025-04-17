@@ -29,6 +29,9 @@ from backend.trades.trade_routes           import trades
 from backend.admin.admin_routes            import admin_bp
 from backend.analytics.analytics_routes    import analytics
 
+# market valuations
+from backend.products.market_valuations    import market_valuations
+
 
 
 def create_app():
@@ -64,14 +67,15 @@ def create_app():
     # and give a url prefix to each
     app.logger.info('current_app(): registering blueprints with Flask app object.')   
     app.register_blueprint(simple_routes)
-    app.register_blueprint(customers,   url_prefix='/c')
-    app.register_blueprint(products,    url_prefix='/p')
-    app.register_blueprint(buyer,       url_prefix='/b')
-    app.register_blueprint(seller,      url_prefix='/s')
-    app.register_blueprint(items,       url_prefix='/i')
-    app.register_blueprint(trades,      url_prefix='/t')
-    app.register_blueprint(analytics,   url_prefix='/a')
-    app.register_blueprint(admin_bp,    url_prefix='/ad')
+    app.register_blueprint(customers,   url_prefix='/')
+    app.register_blueprint(products,    url_prefix='/')
+    app.register_blueprint(buyer,       url_prefix='/')
+    app.register_blueprint(market_valuations, url_prefix='/')
+    app.register_blueprint(seller,      url_prefix='/')
+    app.register_blueprint(items,       url_prefix='/')
+    app.register_blueprint(trades,      url_prefix='/')
+    app.register_blueprint(analytics,   url_prefix='/')
+    app.register_blueprint(admin_bp,    url_prefix='/')
 
     # Don't forget to return the app object
     return app
