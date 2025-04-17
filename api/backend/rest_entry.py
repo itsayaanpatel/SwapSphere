@@ -34,6 +34,7 @@ from backend.products.market_valuations    import market_valuations
 
 # negotiate deals
 from backend.buyers.buyer_negotiation       import negotiation
+from backend.cash_deals                     import cash_deals
 
 
 
@@ -77,6 +78,7 @@ def create_app():
     app.register_blueprint(seller,      url_prefix='/')
     app.register_blueprint(items,       url_prefix='/')
     app.register_blueprint(trades,      url_prefix='/')
+    app.register_blueprint(cash_deals,      url_prefix='/')
     app.register_blueprint(analytics,   url_prefix='/')
     app.register_blueprint(admin_bp,    url_prefix='/')
     app.register_blueprint(negotiation, url_prefix='/')
